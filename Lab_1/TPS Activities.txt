@@ -1,0 +1,18 @@
+Partner: Chelsea Zhao
+Activity 2
+1. CTRL + SHIFT + T is to open terminal
+    a. You can open more than one terminal
+    b. to be able to write code on one terminal and run it in another
+2. You can tell by the file name before the greater than sign in your terminal
+3. first you want to cd into the origin file by using .. then you want to use cd to
+   into your desktop by using something like cd mnt/c/Users/Ivan/Desktop
+4. mkdir CSE31
+
+Activity 3
+3. You use gcc main.c to compile
+4. The computer will create an executable for your program 
+5. -c flag converts the assembly code into machine level code
+6. -g tells the compiler to generate debugging information
+7. When you compile you can use gcc -o filename main.c to change the name of the executable 
+8. On windows it will spit out a executable file named a.out 
+9. ./main is the command i used

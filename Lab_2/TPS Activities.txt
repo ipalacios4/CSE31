@@ -1,0 +1,40 @@
+
+TPS Activity 2
+1. To compile punishment so it can be debugged with GDB you use the command 
+   gcc -o punish -g punishment.c
+2. To run punishment.c in GDB use the command gdb punishment.c
+3. Run the program punish in GDB you use the command gdb ./punish
+4. Breaking points are points in a line a code where you tell the code to 
+   purposly stop so you cna debug it. To set a breaking point you use the 
+   command b N where n is the number line you want the breaking point at
+5. To run a program line by line in GDB you use the command s after a breakingpoint
+6. To display a varibale in GDB you use the command p var where var is the variable's name
+7. To let the program finish its run you use the command c
+
+TPS Activity 3
+1. There are 4 varibales declared in line 1. Two of them are pointers px and py
+2. The values of x, y, and arr[0] are all trash data because they were just declared
+   meaning that they were reseverd a specific slot of memory that already had data 
+3. To prevent the variables from having trash data you initialized them to a specific
+   number or data
+7. Arrays are the same as pointers the differences is that arrays allocate a memory block
+   and you can transvers the memory by incrementing the array.
+8. It makes sence because the array has a pointer that starts at the begining of the array
+
+Assignment 1
+1. The bug was at line 15
+2. To fix it you add the & in the print line
+3. The bug was in line 7 
+4. To fix it you needed to change the parameter to a pointer that points to a double
+   from there you change sum into a pointer as well in read_value function. The value taken
+   in in the main function for read_value should be the address of sum.
+
+Assignment 2
+1. Expect output: HELLO!hello!
+2. Expected output: HI!hi!
+   The bug is that the variables never reset so the str1 still has HELLO! and str2 has hello!
+   so that when the program reask the user for str1 and str2 if the new string is smaller than
+   the one before it will just replace the letters of the corosponding positions. 
+3. The expected output is Hello! How are you?I am fine, thank you! the reason that this does not 
+   happen is becuase the array was hard coded to 10 spaces and not the users input
+

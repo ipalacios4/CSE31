@@ -1,0 +1,37 @@
+main(){
+    int pos_avg;
+    int num_pos;
+    int neg_avg;
+    int num_neg;
+    int neg_sum;
+    int pos_sum;
+    int num = 1;
+    while(num != 0){
+        print("Please enter an interger: ")
+        num = user_input()
+        if(num < 0){
+            num_neg++;
+            neg_avg = num_neg + num;
+        }
+        else{
+            num_pos++;
+            pos_sum = num_pos + num;
+        }
+    }
+
+    pos_avg =calculate_average(pos_sum, num_pos)
+    neg_avg = calculate_average(neg_sum, num_neg)
+
+    if(pos_avg == 0){
+        print(neg_avg);
+    }
+    else if(neg_avg == 0){
+        print(pos_avg);
+    }
+    else{
+        print(pos_avg);
+        print(neg_avg);
+    }
+
+    return 0;
+}
