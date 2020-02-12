@@ -21,7 +21,7 @@ int main ( ) {
     char str2[10];
     while (1) {
         printf ("str1 = ");
-        if (!gets (str1)) {
+        if (!gets (str1)) { 
             return 0;
         };
         printf ("str2 = ");
@@ -30,6 +30,8 @@ int main ( ) {
         };
         printf ("The result of appending str2 to str1 is %s.\n", 
             append (str1, str2));
+            memset(str1, 0, 10);
+            memset(str2, 0,  10);
     }
     return 0;
 }
