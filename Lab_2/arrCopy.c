@@ -12,7 +12,12 @@ void printArr(int *a, int size){
 
 int* arrCopy(int *a, int size){
 	//Your code here
-    
+    int tmp_arr [size];
+    int *temp_arr = tmp_arr;
+    for(int i = 1; i<size+1; i++){
+        tmp_arr[i] = *(a+i);
+    }
+    return temp_arr;
 }
 
 int main(){
