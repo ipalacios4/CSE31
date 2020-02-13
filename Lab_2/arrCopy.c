@@ -3,10 +3,16 @@
 
 void printArr(int *a, int size){
 	//Your code here
+    printf("printArr: ");
+    for(int i = 1; i<size+1; i++){
+        printf("%d ", *(a+i));
+    }
+    printf("\n");
 }
 
 int* arrCopy(int *a, int size){
 	//Your code here
+    
 }
 
 int main(){
@@ -14,14 +20,22 @@ int main(){
     int *arr;
     int *arr_copy;
     int i;
-    printf("Enter size of array:\n");
+    int p;
+    printf("Enter size of array: \n");
     scanf("%d",&n);
 
     //Dynamically create an int array of n items
     //Your code here
+    arr[n];
 
     //Ask user to input content of array
 	//Your code here
+    for(i = 1; i<n+1; i++){
+        printf("Enter array content # %d: ", i);
+        scanf("%d",&p);
+        //increment position of mem location
+        *(arr + i) = p;
+    }
 	
 /*************** YOU MUST NOT MAKE CHANGES BEYOND THIS LINE! ***********/
 	
