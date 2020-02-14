@@ -1,0 +1,12 @@
+TPS Activity 1
+1. 3 pools of memory are stack which hold local variables
+   heap which holds global variables and static data which 
+   holds variables declared outside the main.
+2a. There area three variables declared.
+2b. Two of the variables are pointers. ptr points to an int
+    and handle points to another pointer.
+2c. these are stored in the stack because they are in the main 
+    stored locally
+2d. ptr is going to point to the heap
+
+TPS Activity 2
