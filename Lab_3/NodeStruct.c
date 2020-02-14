@@ -16,7 +16,14 @@ int main() {
     head->fValue = 3.14;
 	
 	// Insert extra code here
-	
+    printf("%p\n", &head);
+    printf("%d\n", head);
+    struct node *temp;
+    
+    temp = head;
+    while(temp != NULL){
+        printf("%p", temp -> iValue);
+    }
 	
 	return 0;
 }
