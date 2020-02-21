@@ -17,13 +17,16 @@ int main() {
 	
 	// Insert extra code here
     printf("%p\n", &head);
-    printf("%d\n", head);
+    printf("%d\n", *head);
+    printf("%p\n", &head->iValue);
+    printf("%p\n", &head->fValue);
+    printf("%p\n", &head->next);
     struct node *temp;
     
-    temp = head;
-    while(temp != NULL){
-        printf("%p", temp -> iValue);
-    }
+    // temp = head;
+    // while(temp != NULL){
+    //     printf("%p", temp -> iValue);
+    // }
 	
 	return 0;
 }
