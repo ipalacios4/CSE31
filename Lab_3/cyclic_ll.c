@@ -10,14 +10,16 @@ int has_cycle(node *head)
 	// Your code goes here:
   node *first = head;
   node *second = head;
-  int i;
-  for(i = 0; i<sizeof(node); i++){
-    first = *(first+1);
-    second = *(second+2);
-    if(*first == NULL || *second == NULL){
-      
-    }
-  }
+
+while(first != NULL && second != NULL){
+  first = first -> next;
+  second = second -> next;
+  if(second != NULL)
+    second = second -> next;
+  if(first != NULL && first == second)
+    return 1;
+}
+  return 0;
 
 }
 
