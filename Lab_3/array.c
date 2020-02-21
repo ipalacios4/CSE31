@@ -53,18 +53,21 @@ int bSearch(int *arr, int a, int b, int key){
     // You must use pointer notations. i.e. no "[]"
     // Your code goes here:
     int mid = (a+b)/2;
-
+    if(a>b)
+        return -1;
     if(*(arr+mid) != key){
         if(*(arr+mid) > key){
-            b = mid;
-            bSearch(arr,a,b,key);
+            b = mid-1;
+            return bSearch(arr,a,b,key);
         }
-        else if(*(arr+mid)<key){
-            a = mid;
-            bSearch(arr, a, b, key);
+        else if (*(arr+mid) < key) {
+            a = mid+1;
+            return bSearch(arr, a, b, key);
         }   
-        else
+        else{
             return -1;
+        }
+    
     }
 
     
