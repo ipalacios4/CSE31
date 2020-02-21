@@ -10,7 +10,9 @@ TPS Activity 1
 2d. ptr is going to point to the heap
 
 TPS Activity 2
-3.
+3. The head of the structure is stored somewhere in the memory while
+    the rest of the data is stored right next to each other divided by
+    the number of bits their data needs.
 
 Assignment 1
 1a. We need to pass the size of the array so that we can make an
