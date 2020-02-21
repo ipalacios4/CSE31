@@ -8,6 +8,17 @@ typedef struct node {
 int has_cycle(node *head)
 {
 	// Your code goes here:
+  node *first = head;
+  node *second = head;
+  int i;
+  for(i = 0; i<sizeof(node); i++){
+    first = *(first+1);
+    second = *(second+2);
+    if(*first == NULL || *second == NULL){
+      
+    }
+  }
+
 }
 
 void test_has_cycle(void)
