@@ -8,6 +8,19 @@ typedef struct node {
 int has_cycle(node *head)
 {
 	// Your code goes here:
+  node *first = head;
+  node *second = head;
+
+while(first != NULL && second != NULL){
+  first = first -> next;
+  second = second -> next;
+  if(second != NULL)
+    second = second -> next;
+  if(first != NULL && first == second)
+    return 1;
+}
+  return 0;
+
 }
 
 void test_has_cycle(void)
