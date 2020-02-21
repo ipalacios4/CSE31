@@ -10,3 +10,11 @@ TPS Activity 1
 2d. ptr is going to point to the heap
 
 TPS Activity 2
+3.
+
+Assignment 1
+1a. We need to pass the size of the array so that we can make an
+    identical array somewhere else in memory 
+1b.The original array is not manipulated at the end of the function
+1c. In the main it reprints the original array so if you manipulate 
+    it you will not be able to print the original array
