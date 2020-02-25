@@ -17,4 +17,9 @@ Activity 1;
 10.
 
 Activity 2.
-1. Line 8 creates an array of int double pointers of size n 
+1. Line 8 creates an array of int double pointers of size n with enough space for an
+    int pointers
+2. To access the nth value of the array you use **(arr+i)
+3. To access the arr[i][j] value of the array you use *(*(arr+i)+j)
+4. One needs to pass the size of the array to know when to stop iterating throught the 
+    memory slot.
