@@ -16,6 +16,19 @@ int main() {
         four_c[i] = 'A'; // ASCII value of 'A' is 65 or 0x41 in Hex.
     
     // Add your code for the exercises here:
+
+	// printf("%c\n", four_ints[0]);
+	// printf("%c\n", four_c[0]);
+
+	// for(i=0; i<4; i++){
+	// 	printf("%d\n", &four_ints[i]);
+	// 	printf("%x\n", four_ints[i]);
+	// }
+
+		for(i=0; i<4; i++){
+		printf("%d\n", &four_c[i]);
+		printf("%x\n", four_c[i]);
+	}
 	
 	
 	

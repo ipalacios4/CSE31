@@ -1,0 +1,20 @@
+Activity 1;
+1. It should just print out the number two in Hex form which is just
+   2.
+2. The expected out come should be the letter A
+4. It printed out the letter A and depending on the print command one
+    either gets 'A' or 41.I am not surpised by the results.
+5a. 2 arrays were allocated in the program
+5b. At one point four_ints and four_c are pointing in the same location
+6. The difference in the two first consecutive values is the type casting
+    since inicially the array was an integer array and when you type cast It
+    to characters it puts all the A's into one index because a character is 
+    only one byte.
+7. 
+8. Here the two consecutive numbers are the same. This is because the array is
+    now a character array and each index only has enough space for one character
+9.
+10.
+
+Activity 2.
+1. Line 8 creates an array of int double pointers of size n 
