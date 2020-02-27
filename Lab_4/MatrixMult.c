@@ -4,13 +4,16 @@
 
 int** matMult(int **a, int **b, int size){
 	// (4) Implement your matrix multiplication here. You will need to create a new matrix to store the product.
-	int **mult;
-	mult = (int**)malloc(size*sizeof(int*));
-	int i =0, j = 0;
-	for(i; i<size; i++){
+	int **mult = (int**)malloc(size*sizeof(int*));
+	int i =0, j = 0, k = 0;
+
+	for(i = 0; i<size; i++){
 		*(mult+i) = (int*)malloc(size*sizeof(int));
-		for(j; j<size; j++){
-			*(*(mult+i)+j) = (*(*(a+i)+j))*(*(*(b+i)+j));
+		for(j = 0; j<size; j++){
+			*(*(mult+i)+j) = 0;
+			for(k = 0; k<size; k++){
+				*(*(mult+i)+j) += *(*(a+i)+k)* (*(*(b+k)+j));
+			}
 		}
 	}
 	return mult;
@@ -33,7 +36,7 @@ void printArray(int **arr, int n){
 }
 
 int main() {
-	int n = 2, i = 0, j = 0;
+	int n = 3, i = 0, j = 0;
 	int **matA, **matB, **matC;
 	// (1) Define 2 n x n arrays (matrices). 
 	matA = (int**)malloc(n * sizeof(int*));
