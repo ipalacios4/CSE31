@@ -31,7 +31,7 @@ int main() {
 	return 0;
 }
 
-void printArray(int ** array, int size){
+void printArray(int **array, int size){
     // (5) Implement your printArr here:
 	int i = 0, j =0;
 	

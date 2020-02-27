@@ -5,8 +5,10 @@
 int** matMult(int **a, int **b, int size){
 	// (4) Implement your matrix multiplication here. You will need to create a new matrix to store the product.
 	int **mult;
+	mult = (int**)malloc(size*sizeof(int*));
 	int i =0, j = 0;
 	for(i; i<size; i++){
+		*(mult+i) = (int*)malloc(size*sizeof(int));
 		for(j; j<size; j++){
 			*(*(mult+i)+j) = (*(*(a+i)+j))*(*(*(b+i)+j));
 		}
@@ -19,8 +21,9 @@ int** matMult(int **a, int **b, int size){
 void printArray(int **arr, int n){
 	// (2) Implement your printArray function here
 	int i = 0, j = 0;
-	for(i; i<n; i++){
-		for(j; j<n; j++){
+
+	for(i = 0; i<n; i++){
+		for(j = 0; j<n; j++){
 			printf("%d\t",*(*(arr+i)+j));
 		}
 		printf("\n");
@@ -30,11 +33,20 @@ void printArray(int **arr, int n){
 }
 
 int main() {
-	int n = 5;
+	int n = 2, i = 0, j = 0;
 	int **matA, **matB, **matC;
 	// (1) Define 2 n x n arrays (matrices). 
 	matA = (int**)malloc(n * sizeof(int*));
 	matB = (int**)malloc(n * sizeof(int*));
+	for(i = 0; i<n; i++){
+		*(matA+i) = (int*)malloc(n * sizeof(int));
+		*(matB+i) = (int*)malloc(n * sizeof(int));
+		for(j = 0; j<n; j++){
+			*(*(matA+i)+j) = (rand() % n)+1;
+			*(*(matB+i)+j) = (rand() % n)+1;
+		}
+	}
+	
 
 	// (3) Call printArray to print out the 2 arrays here.
 	printArray(matA, n);
