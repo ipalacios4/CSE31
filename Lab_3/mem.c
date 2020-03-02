@@ -15,6 +15,9 @@
 	*handle = ptr;
 
 	// Insert extra code here
+	printf("%x\n", &num);
+	printf("%x\n", &ptr);
+	printf("%x\n", &handle);
 
 	return 0;
 } 

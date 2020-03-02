@@ -14,7 +14,9 @@ Activity 1;
 8. Here the two consecutive numbers are the same. This is because the array is
     now a character array and each index only has enough space for one character
 9.
-10.
+10.It is incremented by the data type. So in the first array it incremented by 4
+    spaces because an integer is 4 bytes while in the second time we printed the
+    array it only incremented by one because a char is only one byte
 
 Activity 2.
 1. Line 8 creates an array of int double pointers of size n with enough space for an

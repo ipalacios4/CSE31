@@ -20,14 +20,15 @@ int main() {
 	// printf("%c\n", four_ints[0]);
 	// printf("%c\n", four_c[0]);
 
-	// for(i=0; i<4; i++){
-	// 	printf("%d\n", &four_ints[i]);
-	// 	printf("%x\n", four_ints[i]);
-	// }
+	for(i=0; i<4; i++){
+		printf("%d\n", &four_ints[i]);
+		printf("%X\n", four_ints[i]);
+	}
+	printf("\n");
 
 		for(i=0; i<4; i++){
 		printf("%d\n", &four_c[i]);
-		printf("%x\n", four_c[i]);
+		printf("%X\n", four_c[i]);
 	}
 	
 	
