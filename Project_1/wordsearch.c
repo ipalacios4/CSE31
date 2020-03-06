@@ -7,6 +7,15 @@
 // Feel free to declare any helper functions
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
+//FILL IN THE ARGS FOR THESE SHOULD CONTAIN arr MAYBE n (which is the block size) position
+void rightToLeft(char** arr, int n, int x, int y); 
+void topToBottom(char** arr, int n, int x, int y);
+void rightDiag(char** arr, int n, int x, int y);
+void leftDiag(char** arr, int n, int x, int y);
+void checkWord(); //Needs the check word with list letter for letter
+char** toLower(char** list, int listSize);
+
+
 
 // Main function, DO NOT MODIFY!!!	
 int main(int argc, char **argv) {
@@ -17,8 +26,8 @@ int main(int argc, char **argv) {
 	}
     int i, j;
     FILE *fptr;
-    char **block = (char**)malloc(bSize * sizeof(char*));
-	char **words = (char**)malloc(50 * sizeof(char*));
+    char **block = (char**)malloc(bSize * sizeof(char*));// The block of letters puzzle1.txt
+	char **words = (char**)malloc(50 * sizeof(char*)); // This is gonna use states.txt
 
     // Open file for reading puzzle
     fptr = fopen(argv[1], "r");
@@ -77,15 +86,53 @@ int main(int argc, char **argv) {
     return 0;
 }
 
+//Each direction I am checking 
+void rightToLeft(char** arr, int n, int x, int y){
+
+} 
+void topToBottom(char** arr, int n, int x, int y){
+
+}
+void rightDiag(char** arr, int n, int x, int y){
+
+}
+void leftDiag(char** arr, int n, int x, int y){
+
+}
+
 void printPuzzle(char** arr, int n){
 	// This function will print out the complete puzzle grid (arr). It must produce the output in the SAME format as the samples in the instructions.
 	// Your implementation here
-
+	int i = 0, j = 0;
+	for(i = 0; i<n; i++){
+		for(j = 0; j<n; j++){
+			printf("%c", *(*(arr+i)+j));
+		}
+		printf("\n");
+	}
+	printf("\n");
 
 }
 
 void searchPuzzle(char** arr, int n, char** list, int listSize){
+	//arr is the scrambled block of letters
+	//list is the list of words so all the answers
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
 
+	int x = 0, y = 0, i = 0; //(x,y)The position on the chart. i is the number of iterations to go back if not the word
+
+	
+
 }
+
+/*Things that might help
+	How many directions - 4
+	Right to left 
+	top to bottom
+	Right Diag down
+	Left Diag down
+
+	For all these directions check reverse 
+
+*/
