@@ -12,12 +12,15 @@ void searchPuzzle(char** arr, int n, char** list, int listSize);
 	- Access to the list
 	- Position of the character
 */
+//NOTE Movements should have same arguments and struct
+//differences is the x and y movements 
 void leftToRight(char** arr, char** list, int x, int y); 
 void topToBottom();
 void rightDiag();
 void leftDiag();
 void checkWord(char* word, char** list, int listSize); //Needs the check word with list letter for letter
-char** toLower(char** list, int x, int y);
+char** toLower(char** listpos, char** charpos, int x, int y, int i);
+char** toUpper (char** listpos, char** charpos, int x, int y, int i);
 
 
 
@@ -91,22 +94,57 @@ int main(int argc, char **argv) {
 }
 
 //Each direction I am checking 
-void leftToRight(char** arr, char** list, int x, int y){
-	
+//These need IF-ELSE statements containing toLower and toUpper respectivly 
+//MIGHT NOT NEED X AND Y 
+//To do it recusivly need a end statement which is what????
+void leftToRight(char** listpos, char** charpos, int x, int y, int i){
+	if(**charpos == **listpos){
+		toLower(&charpos)
+	}
+	else if(i > 0){
+		toUpper(&charpos)
+		i = i--;
+		charpos = *(*(charpos-x)-y);
+
+	}
 } 
 void topToBottom(){
+	if(){
+
+	}
+	else{
+
+	}
 
 }
 void rightDiag(){
+	if(){
+
+	}
+	else{
+
+	}	
 
 }
 void leftDiag(){
+	if(){
+
+	}
+	else{
+
+	}
 
 }
 
 //Changes letter at current position
-char** toLower(char** list, int x, int y){
-
+char* toLower(char** listpos, char** arrpos, int x, int y){
+	if(**arrpos == **listpos){
+		p = p + 32;
+	}	
+}
+//This should be used if characters don't match and you need to fix them
+char* toUpper(char** listpos, char** arrpos, int x, int y){
+	if(**arrpos == **listpos)
 }
 
 void printPuzzle(char** arr, int n){
@@ -132,7 +170,7 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 	int x = 0, y = 0, i = 0, j = 0; //(x,y)The position on the chart. i is the number of iterations to go back if not the word
 	char* word;
 
-	While loop will tell you when to stop searching stop at the end of list
+	//While loop will tell you when to stop searching stop at the end of list
 	while(i != listSize){
 		word = *(list + i);// This will store word so we can check it 
 		letter = *(*(list+i)+j);
@@ -141,10 +179,12 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 		for(x = 0; x<n; x++){
 			for(y = 0; y<n; y++){
 			//Now we should get a word from list and check it 
+			//IF TRUE then retrun lowercase and move to the next letter in the same pos
+			//ELSE leave the letter and move to the next possible move
 
-				if(*(*(arr+x)+y) == letter){
+				char* p = *(*(arr+x)+y); 
 					
-				}		
+				toLower(&letter, &p, x, y);
 			}
 		}
 
