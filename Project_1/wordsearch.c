@@ -7,13 +7,17 @@
 // Feel free to declare any helper functions
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
-//FILL IN THE ARGS FOR THESE SHOULD CONTAIN arr MAYBE n (which is the block size) position
-void rightToLeft(char** arr, int n, int x, int y); 
-void topToBottom(char** arr, int n, int x, int y);
-void rightDiag(char** arr, int n, int x, int y);
-void leftDiag(char** arr, int n, int x, int y);
-void checkWord(); //Needs the check word with list letter for letter
-char** toLower(char** list, int listSize);
+/*Arguments for Movements
+	- Access to the block
+	- Access to the list
+	- Position of the character
+*/
+void leftToRight(char** arr, char** list, int x, int y); 
+void topToBottom();
+void rightDiag();
+void leftDiag();
+void checkWord(char* word, char** list, int listSize); //Needs the check word with list letter for letter
+char** toLower(char** list, int x, int y);
 
 
 
@@ -87,16 +91,21 @@ int main(int argc, char **argv) {
 }
 
 //Each direction I am checking 
-void rightToLeft(char** arr, int n, int x, int y){
-
+void leftToRight(char** arr, char** list, int x, int y){
+	
 } 
-void topToBottom(char** arr, int n, int x, int y){
+void topToBottom(){
 
 }
-void rightDiag(char** arr, int n, int x, int y){
+void rightDiag(){
 
 }
-void leftDiag(char** arr, int n, int x, int y){
+void leftDiag(){
+
+}
+
+//Changes letter at current position
+char** toLower(char** list, int x, int y){
 
 }
 
@@ -106,7 +115,7 @@ void printPuzzle(char** arr, int n){
 	int i = 0, j = 0;
 	for(i = 0; i<n; i++){
 		for(j = 0; j<n; j++){
-			printf("%c", *(*(arr+i)+j));
+			printf("%c ", *(*(arr+i)+j));
 		}
 		printf("\n");
 	}
@@ -120,8 +129,27 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
 
-	int x = 0, y = 0, i = 0; //(x,y)The position on the chart. i is the number of iterations to go back if not the word
+	int x = 0, y = 0, i = 0, j = 0; //(x,y)The position on the chart. i is the number of iterations to go back if not the word
+	char* word;
 
+	While loop will tell you when to stop searching stop at the end of list
+	while(i != listSize){
+		word = *(list + i);// This will store word so we can check it 
+		letter = *(*(list+i)+j);
+		max_length = strlen(*(list+i));
+	//Double for-loop should go through the block of letters
+		for(x = 0; x<n; x++){
+			for(y = 0; y<n; y++){
+			//Now we should get a word from list and check it 
+
+				if(*(*(arr+x)+y) == letter){
+					
+				}		
+			}
+		}
+
+		i++;
+	}
 	
 
 }
