@@ -80,7 +80,14 @@ int main(int argc, char **argv) {
 void printPuzzle(char** arr, int n){
 	// This function will print out the complete puzzle grid (arr). It must produce the output in the SAME format as the samples in the instructions.
 	// Your implementation here
-
+	int i = 0, j = 0;
+	for(i; i<n; i++){
+		for(j; j<n; j++){
+			printf("%s\n", *(*(arr+i)+j));
+		}
+		printf("\n");
+	}
+	printf("\n");
 
 }
 
