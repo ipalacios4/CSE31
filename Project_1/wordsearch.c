@@ -7,6 +7,8 @@
 // Feel free to declare any helper functions
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
+void upperList(char** list, int listSize);
+void leftToRight(char** arr, int x, int y, char** list, int listSize);
 
 // Main function, DO NOT MODIFY!!!	
 int main(int argc, char **argv) {
@@ -63,17 +65,20 @@ int main(int argc, char **argv) {
 	// Print out original puzzle grid
     printf("Printing puzzle before search:\n");
     printPuzzle(block, bSize);
-	printf("\n");
+	//printf("\n");
 
 	// Call searchPuzzle to find all words in the puzzle
 	searchPuzzle(block, bSize, words, 50);
-	printf("\n");
+	//printf("\n");
 	
 	// Print out final puzzle grid with found words in lower case
     printf("Printing puzzle after search:\n");
     printPuzzle(block, bSize);
 	printf("\n");
-	
+
+	printf("Printing uppercase list:\n");
+	upperList(words, 50);
+
     return 0;
 }
 
@@ -81,9 +86,9 @@ void printPuzzle(char** arr, int n){
 	// This function will print out the complete puzzle grid (arr). It must produce the output in the SAME format as the samples in the instructions.
 	// Your implementation here
 	int i = 0, j = 0;
-	for(i; i<n; i++){
-		for(j; j<n; j++){
-			printf("%s\n", *(*(arr+i)+j));
+	for(i=0; i<n; i++){
+		for(j=0; j<n; j++){
+			printf("%c ", *(*(arr+i)+j));
 		}
 		printf("\n");
 	}
@@ -91,8 +96,85 @@ void printPuzzle(char** arr, int n){
 
 }
 
+void upperList(char** list, int listSize){
+	int i = 0, j = 0;
+	for(i = 0; i<listSize; i++){
+		for(j = 0; j<=strlen(*(list+i))+1; j++){
+			if(*(*(list+i)+j)>='a' && *(*(list+i)+j)<='z'){
+				*(*(list+i)+j) = *(*(list+i)+j)-32;
+			}
+		}
+	}
+}
+
+void leftToRight(char** arr, int x, int y, char* answer, wordlen){
+	int i = 0, j = 0;
+	for(i = 1; i<wordlen; i++){
+
+	}
+
+}
+//if already lowered just leave alone so have if statements
+void makeLower(char** arr, int x, int y, int wordlen){
+
+}
+
 void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
+	int x = 0, y = 0, p = 0, wordlen = 0;
+	char* first_Letter;
+	char* last_Letter;
+	
+	//To get words from list and letters for puzzle utilize pointers system
+	//Gets first letter of the word. Use this to search through puzzle
+
+	printf("%c\n", *(*(arr + y)+x));
+	printf("%c\n", *(*(arr + 0)+1)); //This can move throughout the puzzle
+
+	while(n != listSize+1){
+		first_Letter = *(*(list)+p);//first letter of the word we are looking for
+		wordlen = *(list+p);// length of the word we are looking for 
+		char* answer = (char*)malloc(wordlen*sizeof(char));//create space to put the word in to check
+
+		//double for loop to go through individual letters in block
+		for(y = 0; y<n; y++){
+			for(x = 0; x<n; x++){
+				//We found first letter now we need to find the other ones
+				//we can use length to shorten search
+				if(*(*(arr+y)+x) == *first_Letter){
+					//
+					answer = *(*(arr+y)+x);
+					switch(){
+						case "LR":
+						answer = leftToRight(arr, x, y, answer, wordlen);
+						if(answer == *(list+p)){
+							toLower();
+							break;
+						}
+						case "TB":
+						answer = topBottom();
+						if(answer == *(list+p)){
+							toLower();
+							break;
+						}
+						case "RD":
+						answer = rightDiag();
+						if(answer == *(list+p)){
+							toLower();
+							break;
+						}
+						case "LD":
+						answer = leftDiag();
+						if(answer == *(list+p)){
+							toLower();
+							break;
+						}
+					}
+				}
+			}
+		}
+		p++;
+	}
 
 }
