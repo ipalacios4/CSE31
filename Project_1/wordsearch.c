@@ -111,11 +111,21 @@ void upperList(char** list, int listSize){
 
 //if already lowered just leave alone so have if statements
 void toLower(char** arr, int x, int y){
-	*(*(arr+y)+x) = *(*(arr+y)+x) + 32;
+	if(*(*(arr+y)+x)>='a'&& *(arr+y)+x)<='z'){
+		break;
+	}
+	else{
+		*(*(arr+y)+x) = *(*(arr+y)+x) + 32;
+	}
 }
 
 void toUpper(char** arr, int x, int y){
-	*(*(arr+y)+x) = *(*(arr+y)+x) - 32;
+	if(*(*(arr+y)+x)>='A'&& *(arr+y)+x)<='Z'){
+		break;
+	}
+	else{
+		*(*(arr+y)+x) = *(*(arr+y)+x) - 32;
+	}
 }
 
 
@@ -142,8 +152,8 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
 	int x = 0, y = 0, p = 0, wordlen = 0, num_ans = 0;
-	char* first_Letter;
-	char* last_Letter;
+	char first_Letter;
+	char last_Letter;
 
 	//create space to put the word that show up
 	char** answer = (char**)malloc(10*sizeof(char*));
@@ -155,27 +165,29 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 	//To get words from list and letters for puzzle utilize pointers system
 	//Gets first letter of the word. Use this to search through puzzle
 
-	while(p != listSize+1){
-		*first_Letter = *(*(list+p));//first letter of the word we are looking for
+	while(p!=listSize){
+		first_Letter = *(*(list+p));//first letter of the word we are looking for
 		wordlen = strlen(*(list+p));// length of the word we are looking for 
-		printf("%c\n", *first_Letter);
-		printf("%d\n",wordlen);
+		//printf("%c\n", *first_Letter);
+		//printf("%d\n",wordlen);
+
 		//double for loop to go through individual letters in block
-		 for(y = 0; y<n; y++){
-		 	for(x = 0; x<n; x++){
+		  for(y = 0; y<n; y++){
+		  	for(x = 0; x<n; x++){
 		 		//We found first letter now we need to find the other ones
 		 		//we can use length to shorten search
-				 printf("%c\n", **arr);
-				 printf("%c\n",*(*(arr+y)+x));
-		 		if(*(*(arr+y)+x) == *first_Letter){
-					*(*(answer+num_ans)+x) = *first_Letter;
+				 //printf("%c", **arr);
+				 //printf("%c ",*(*(arr+y)+x));
+				
+		 		if(*(*(arr+y)+x) == first_Letter){
+					*(*(answer+num_ans)+x) = first_Letter;
 					toLower(arr,x,y);
-					switch(0){
-						case 0://LR
-						leftToRight(arr, x, y, list, wordlen, answer, num_ans);
-						if(*(answer+num_ans) == *(list+p)){
-							break;
-						}
+					// switch(0){
+					// 	case 0://LR
+					// 	leftToRight(arr, x, y, list, wordlen, answer, num_ans);
+					// 	if(*(answer+num_ans) == *(list+p)){
+					// 		break;
+					// 	}
 						// case 1://TB
 		// 				// answer = topBottom();
 		// 				// if(answer == *(list+p)){
@@ -193,12 +205,13 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 		// 				// if(answer == *(list+p)){
 		// 				// 	toLower();
 		// 				// 	break;
-		// 				//}
-					}
+		// // 				//}
+					//}
 		 		}
 		 	}
 		 }
 		p++;
+	
 	}
 	
 
