@@ -107,16 +107,30 @@ void upperList(char** list, int listSize){
 	}
 }
 
-void leftToRight(char** arr, int x, int y, char* answer, wordlen){
-	int i = 0, j = 0;
+void leftToRight(char** arr, int x, int y, char* answer, int wordlen, char** list){
+	int i = 0;
 	for(i = 1; i<wordlen; i++){
-
+		if(*(*(arr+y)x+i) == *(*(list)+i)){
+			*(answer+i) = *(*(arr+y)+x);
+			makeLower(arr, x, y);
+		}
+		else{
+			for(i; i>-1; i--){
+				makeUpper(arr,x,y);
+				x--;
+			}
+		}
+		
 	}
 
 }
 //if already lowered just leave alone so have if statements
-void makeLower(char** arr, int x, int y, int wordlen){
+void makeLower(char** arr, int x, int y){
+	*(*(arr+y)+x) = *(*(arr+y)+x) + 32;
+}
 
+void makeUpper(char** arr, int x, int y){
+	*(*(arr+y)+x) = *(*(arr+y)+x) - 32;
 }
 
 void searchPuzzle(char** arr, int n, char** list, int listSize){
@@ -125,18 +139,21 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 	int x = 0, y = 0, p = 0, wordlen = 0;
 	char* first_Letter;
 	char* last_Letter;
+
+	//create space to put the word that show up
+	char** answer = (char**)malloc(10*sizeof(*char));
+
+	for(int i  = 0; i<10; i++){
+		*(answer+i) = (char*)malloc(20*sizeof(char));
+	}
 	
 	//To get words from list and letters for puzzle utilize pointers system
 	//Gets first letter of the word. Use this to search through puzzle
 
-	printf("%c\n", *(*(arr + y)+x));
-	printf("%c\n", *(*(arr + 0)+1)); //This can move throughout the puzzle
-
 	while(n != listSize+1){
 		first_Letter = *(*(list)+p);//first letter of the word we are looking for
 		wordlen = *(list+p);// length of the word we are looking for 
-		char* answer = (char*)malloc(wordlen*sizeof(char));//create space to put the word in to check
-
+		
 		//double for loop to go through individual letters in block
 		for(y = 0; y<n; y++){
 			for(x = 0; x<n; x++){
@@ -145,9 +162,10 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 				if(*(*(arr+y)+x) == *first_Letter){
 					//
 					answer = *(*(arr+y)+x);
+					makeLower(arr,x,y);
 					switch(){
 						case "LR":
-						answer = leftToRight(arr, x, y, answer, wordlen);
+						answer = leftToRight(arr, x, y, answer, wordlen, list);
 						if(answer == *(list+p)){
 							toLower();
 							break;
