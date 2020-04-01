@@ -8,7 +8,9 @@
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
 void upperList(char** list, int listSize);
-void leftToRight(char** arr, int x, int y, char** list, int listSize);
+void leftToRight(char** arr, int x, int y, char** list, int wordlen, char** ans, int num_ans);
+void toLower(char** arr, int x, int y);
+void toUpper(char** arr, int x, int y);
 
 // Main function, DO NOT MODIFY!!!	
 int main(int argc, char **argv) {
@@ -107,16 +109,27 @@ void upperList(char** list, int listSize){
 	}
 }
 
-void leftToRight(char** arr, int x, int y, char* answer, int wordlen, char** list){
-	int i = 0;
+//if already lowered just leave alone so have if statements
+void toLower(char** arr, int x, int y){
+	*(*(arr+y)+x) = *(*(arr+y)+x) + 32;
+}
+
+void toUpper(char** arr, int x, int y){
+	*(*(arr+y)+x) = *(*(arr+y)+x) - 32;
+}
+
+
+void leftToRight(char** arr, int x, int y, char** list, int wordlen, char** answer, int num_ans){
+	int i = 0, j = 0;
 	for(i = 1; i<wordlen; i++){
-		if(*(*(arr+y)x+i) == *(*(list)+i)){
-			*(answer+i) = *(*(arr+y)+x);
-			makeLower(arr, x, y);
+		if(*(*(arr+y)+(x+i)) == *(*(list)+i)){
+			*(*(answer+num_ans)+(x+i)) = *(*(arr+y)+(x+i)); 
+			x++;
+			toLower(arr, x, y);
 		}
 		else{
 			for(i; i>-1; i--){
-				makeUpper(arr,x,y);
+				toUpper(arr,x,y);
 				x--;
 			}
 		}
@@ -124,75 +137,69 @@ void leftToRight(char** arr, int x, int y, char* answer, int wordlen, char** lis
 	}
 
 }
-//if already lowered just leave alone so have if statements
-void makeLower(char** arr, int x, int y){
-	*(*(arr+y)+x) = *(*(arr+y)+x) + 32;
-}
-
-void makeUpper(char** arr, int x, int y){
-	*(*(arr+y)+x) = *(*(arr+y)+x) - 32;
-}
 
 void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
-	int x = 0, y = 0, p = 0, wordlen = 0;
+	int x = 0, y = 0, p = 0, wordlen = 0, num_ans = 0;
 	char* first_Letter;
 	char* last_Letter;
 
 	//create space to put the word that show up
-	char** answer = (char**)malloc(10*sizeof(*char));
+	char** answer = (char**)malloc(10*sizeof(char*));
 
-	for(int i  = 0; i<10; i++){
+	for(int i = 0; i<10; i++){
 		*(answer+i) = (char*)malloc(20*sizeof(char));
 	}
-	
+
 	//To get words from list and letters for puzzle utilize pointers system
 	//Gets first letter of the word. Use this to search through puzzle
 
-	while(n != listSize+1){
-		first_Letter = *(*(list)+p);//first letter of the word we are looking for
-		wordlen = *(list+p);// length of the word we are looking for 
-		
+	while(p != listSize+1){
+		*first_Letter = *(*(list+p));//first letter of the word we are looking for
+		wordlen = strlen(*(list+p));// length of the word we are looking for 
+		printf("%c\n", *first_Letter);
+		printf("%d\n",wordlen);
 		//double for loop to go through individual letters in block
-		for(y = 0; y<n; y++){
-			for(x = 0; x<n; x++){
-				//We found first letter now we need to find the other ones
-				//we can use length to shorten search
-				if(*(*(arr+y)+x) == *first_Letter){
-					//
-					answer = *(*(arr+y)+x);
-					makeLower(arr,x,y);
-					switch(){
-						case "LR":
-						answer = leftToRight(arr, x, y, answer, wordlen, list);
-						if(answer == *(list+p)){
-							toLower();
+		 for(y = 0; y<n; y++){
+		 	for(x = 0; x<n; x++){
+		 		//We found first letter now we need to find the other ones
+		 		//we can use length to shorten search
+				 printf("%c\n", **arr);
+				 printf("%c\n",*(*(arr+y)+x));
+		 		if(*(*(arr+y)+x) == *first_Letter){
+					*(*(answer+num_ans)+x) = *first_Letter;
+					toLower(arr,x,y);
+					switch(0){
+						case 0://LR
+						leftToRight(arr, x, y, list, wordlen, answer, num_ans);
+						if(*(answer+num_ans) == *(list+p)){
 							break;
 						}
-						case "TB":
-						answer = topBottom();
-						if(answer == *(list+p)){
-							toLower();
-							break;
-						}
-						case "RD":
-						answer = rightDiag();
-						if(answer == *(list+p)){
-							toLower();
-							break;
-						}
-						case "LD":
-						answer = leftDiag();
-						if(answer == *(list+p)){
-							toLower();
-							break;
-						}
+						// case 1://TB
+		// 				// answer = topBottom();
+		// 				// if(answer == *(list+p)){
+		// 				// 	toLower();
+		// 				// 	break;
+		// 				// }
+		// 				// case "RD":
+		// 				// answer = rightDiag();
+		// 				// if(answer == *(list+p)){
+		// 				// 	toLower();
+		// 				// 	break;
+		// 				// }
+		// 				// case "LD":
+		// 				// answer = leftDiag();
+		// 				// if(answer == *(list+p)){
+		// 				// 	toLower();
+		// 				// 	break;
+		// 				//}
 					}
-				}
-			}
-		}
+		 		}
+		 	}
+		 }
 		p++;
 	}
+	
 
 }
