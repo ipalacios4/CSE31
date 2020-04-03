@@ -124,7 +124,12 @@ void toUpper(char** arr, int x, int y){ // Carefull here if there is some overla
 
 void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char** answer, int num_ans){
 	int i = 0, j = 0;
-	for(i = 1; i<wordlen; i++){
+	printf("%s\n", "func");
+	for(i = 0; i<wordlen; i++){
+		printf("%c\t", *current_word);
+		printf("%c\t", x);
+		printf("%c\t", y);
+		printf("%c\n", *(*(arr+y)+x));
 		if(*(*(arr+y)+(x+1)) == *(current_word+i)){
 			*(*(answer+num_ans)+i) = *(*(arr+y)+(x+1)); 
 			 x++;
@@ -135,9 +140,10 @@ void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char
 		 		toUpper(arr,x,y);
 		 		x--;
 		 	}
-		 	break;
+		 	
 		 }
 	}
+
 
 
 }
@@ -145,7 +151,7 @@ void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char
 void topBottom(char** arr, int x, int y, char* current_word, int wordlen, char** answer, int num_ans){
 	int i = 0, j = 0;
 	printf("%s\n", "TB FUNCTION");
-	for(i = 1; i<wordlen; i++){
+	for(i = 0; i<wordlen; i++){
 		printf("%c\t", *(*(arr+(y+1))+x));
 		printf("%d\t", x);
 		printf("%d\n", y+1);
@@ -201,23 +207,22 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 		  	for(x = 0; x<n; x++){
 		 		//We found first letter now we need to find the other ones
 		 		//we can use length to shorten search
-				
+				printf("%s\t", current_word);
 		 		if(*(*(arr+y)+x) == first_Letter){
 				// 	 printf("%s\t", current_word);
 				// printf("%c\n", first_Letter);
-					*(*(answer+num_ans)) = first_Letter;
-					toLower(arr,x,y);
+					// *(*(answer+num_ans)) = first_Letter;
+					// toLower(arr,x,y);
 					switch(0){
 						case 0://LR
 					 	leftToRight(arr, x, y, current_word, wordlen, answer, num_ans);
-						if(*(answer+num_ans) == current_word){
-							num_ans++;
+						if(strcmp(*(answer+num_ans), current_word) == 0){
 							break;
 						}
-		// 				case 1://TB
-		// 				printf("%c\t", *(*(arr+(y))+x));
-		// printf("%d\t", x);
-		// printf("%d\n", y);
+						//case 1://TB
+						//printf("%c\t", *(*(arr+(y))+x));
+						// printf("%d\t", x);
+						// printf("%d\n", y);
 						// topBottom(arr, x, y, current_word, wordlen, answer, num_ans);
 						// if(*(answer+num_ans) == current_word){
 						// 	num_ans++;
@@ -236,8 +241,17 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 						// 	break;
 		 				//}
 					}
+					if(strcmp(*(answer+num_ans), current_word) == 0){
+					break;
+					} 
 		 		}
+				 if(strcmp(*(answer+num_ans), current_word) == 0){
+					break;
+					} 
 		 	}
+			 if(strcmp(*(answer+num_ans), current_word) == 0){
+					num_ans++;
+				} 
 		 }
 		p++;
 	
