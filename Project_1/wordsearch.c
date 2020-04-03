@@ -8,7 +8,8 @@
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
 void upperList(char** list, int listSize);
-void leftToRight(char** arr, int x, int y, char** list, int wordlen, char** ans, int num_ans);
+void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char** ans, int num_ans);
+void topBottom(char** arr, int x, int y, char* current_word, int wordlen, char** ans, int num_ans);
 void toLower(char** arr, int x, int y);
 void toUpper(char** arr, int x, int y);
 
@@ -78,9 +79,6 @@ int main(int argc, char **argv) {
     printPuzzle(block, bSize);
 	printf("\n");
 
-	printf("Printing uppercase list:\n");
-	upperList(words, 50);
-
     return 0;
 }
 
@@ -111,42 +109,64 @@ void upperList(char** list, int listSize){
 
 //if already lowered just leave alone so have if statements
 void toLower(char** arr, int x, int y){
-	if(*(*(arr+y)+x)>='a'&& *(arr+y)+x)<='z'){
-		break;
-	}
-	else{
+	if(*(*(arr+y)+x)>='A'&& *(*(arr+y)+x)<='Z'){
 		*(*(arr+y)+x) = *(*(arr+y)+x) + 32;
 	}
 }
 
-void toUpper(char** arr, int x, int y){
-	if(*(*(arr+y)+x)>='A'&& *(arr+y)+x)<='Z'){
-		break;
-	}
-	else{
+void toUpper(char** arr, int x, int y){ // Carefull here if there is some overlap we may not need to upper
+	if(*(*(arr+y)+x)>='a'&& *(*(arr+y)+x)<='z'){
 		*(*(arr+y)+x) = *(*(arr+y)+x) - 32;
 	}
+		
 }
 
 
-void leftToRight(char** arr, int x, int y, char** list, int wordlen, char** answer, int num_ans){
+void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char** answer, int num_ans){
 	int i = 0, j = 0;
 	for(i = 1; i<wordlen; i++){
-		if(*(*(arr+y)+(x+i)) == *(*(list)+i)){
-			*(*(answer+num_ans)+(x+i)) = *(*(arr+y)+(x+i)); 
-			x++;
+		if(*(*(arr+y)+(x+1)) == *(current_word+i)){
+			*(*(answer+num_ans)+i) = *(*(arr+y)+(x+1)); 
+			 x++;
+			 toLower(arr, x, y);
+		 }
+		 else{
+			 for(j = i; j>=0; j--){
+		 		toUpper(arr,x,y);
+		 		x--;
+		 	}
+		 	break;
+		 }
+	}
+
+
+}
+
+void topBottom(char** arr, int x, int y, char* current_word, int wordlen, char** answer, int num_ans){
+	int i = 0, j = 0;
+	printf("%s\n", "TB FUNCTION");
+	for(i = 1; i<wordlen; i++){
+		printf("%c\t", *(*(arr+(y+1))+x));
+		printf("%d\t", x);
+		printf("%d\n", y+1);
+		if(y+1 >= 15 || *(answer+num_ans) == current_word){
+			break;
+		}
+		else if(*(*(arr+(y+1))+x) == *(current_word+i)){
+			*(*(answer+num_ans)+i) = *(*(arr+(y+1))+x);
+			y++;
 			toLower(arr, x, y);
 		}
 		else{
-			for(i; i>-1; i--){
-				toUpper(arr,x,y);
-				x--;
+			for(j = i; j>=0; j--){
+				toUpper(arr, x, y);
+				y--;
 			}
+			break;
 		}
-		
 	}
-
 }
+
 
 void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
@@ -154,6 +174,7 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 	int x = 0, y = 0, p = 0, wordlen = 0, num_ans = 0;
 	char first_Letter;
 	char last_Letter;
+	char* current_word = (char*)malloc(20*sizeof(char));
 
 	//create space to put the word that show up
 	char** answer = (char**)malloc(10*sizeof(char*));
@@ -162,57 +183,70 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 		*(answer+i) = (char*)malloc(20*sizeof(char));
 	}
 
+	upperList(list, listSize);
+	strcpy(current_word, *list);
+
+	first_Letter = *current_word;
+	
 	//To get words from list and letters for puzzle utilize pointers system
 	//Gets first letter of the word. Use this to search through puzzle
-
+	
 	while(p!=listSize){
-		first_Letter = *(*(list+p));//first letter of the word we are looking for
+		strcpy(current_word,*(list+p));
+		first_Letter = *(current_word);//first letter of the word we are looking for
 		wordlen = strlen(*(list+p));// length of the word we are looking for 
-		//printf("%c\n", *first_Letter);
-		//printf("%d\n",wordlen);
 
 		//double for loop to go through individual letters in block
 		  for(y = 0; y<n; y++){
 		  	for(x = 0; x<n; x++){
 		 		//We found first letter now we need to find the other ones
 		 		//we can use length to shorten search
-				 //printf("%c", **arr);
-				 //printf("%c ",*(*(arr+y)+x));
 				
 		 		if(*(*(arr+y)+x) == first_Letter){
-					*(*(answer+num_ans)+x) = first_Letter;
+				// 	 printf("%s\t", current_word);
+				// printf("%c\n", first_Letter);
+					*(*(answer+num_ans)) = first_Letter;
 					toLower(arr,x,y);
-					// switch(0){
-					// 	case 0://LR
-					// 	leftToRight(arr, x, y, list, wordlen, answer, num_ans);
-					// 	if(*(answer+num_ans) == *(list+p)){
-					// 		break;
-					// 	}
-						// case 1://TB
-		// 				// answer = topBottom();
-		// 				// if(answer == *(list+p)){
-		// 				// 	toLower();
-		// 				// 	break;
-		// 				// }
-		// 				// case "RD":
-		// 				// answer = rightDiag();
-		// 				// if(answer == *(list+p)){
-		// 				// 	toLower();
-		// 				// 	break;
-		// 				// }
-		// 				// case "LD":
-		// 				// answer = leftDiag();
-		// 				// if(answer == *(list+p)){
-		// 				// 	toLower();
-		// 				// 	break;
-		// // 				//}
-					//}
+					switch(0){
+						case 0://LR
+					 	leftToRight(arr, x, y, current_word, wordlen, answer, num_ans);
+						if(*(answer+num_ans) == current_word){
+							num_ans++;
+							break;
+						}
+		// 				case 1://TB
+		// 				printf("%c\t", *(*(arr+(y))+x));
+		// printf("%d\t", x);
+		// printf("%d\n", y);
+						// topBottom(arr, x, y, current_word, wordlen, answer, num_ans);
+						// if(*(answer+num_ans) == current_word){
+						// 	num_ans++;
+						// 	break;
+						// }
+						// case "RD":
+						// answer = rightDiag();
+						// if(answer == *(list+p)){
+						// 	toLower();
+						// 	break;
+						// }
+						// case "LD":
+						// answer = leftDiag();
+						// if(answer == *(list+p)){
+						// 	toLower();
+						// 	break;
+		 				//}
+					}
 		 		}
 		 	}
 		 }
 		p++;
 	
 	}
-	
+//This is to print out the answers from the word search
+
+	// printf("%s\n", "Words in the wordsearch: ");
+	// for(p = 0; p<listSize; p++){
+	// 	printf("%s\n", *(answer+p));
+	// }
 
 }
