@@ -8,8 +8,11 @@
 void printPuzzle(char** arr, int n);
 void searchPuzzle(char** arr, int n, char** list, int listSize);
 void upperList(char** list, int listSize);
-void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char** ans, int num_ans);
-void topBottom(char** arr, int x, int y, char* current_word, int wordlen, char** ans, int num_ans);
+void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans);
+void righttoLeft(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans);
+void topBottom(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans);
+void rightDiag(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans);
+void leftDiag(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans);
 void toLower(char** arr, int x, int y);
 void toUpper(char** arr, int x, int y);
 
@@ -109,6 +112,7 @@ void upperList(char** list, int listSize){
 
 //if already lowered just leave alone so have if statements
 void toLower(char** arr, int x, int y){
+	printf("%s\n", "ABC");
 	if(*(*(arr+y)+x)>='A'&& *(*(arr+y)+x)<='Z'){
 		*(*(arr+y)+x) = *(*(arr+y)+x) + 32;
 	}
@@ -121,73 +125,82 @@ void toUpper(char** arr, int x, int y){ // Carefull here if there is some overla
 		
 }
 
-
-void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char** answer, int num_ans){
-	int i = 0, j = 0;
-	printf("%s\n", "func");
-	for(i = 0; i<wordlen; i++){
-		printf("%c\t", *current_word);
-		printf("%c\t", x);
-		printf("%c\t", y);
-		printf("%c\n", *(*(arr+y)+x));
-		if(*(*(arr+y)+(x+1)) == *(current_word+i)){
-			*(*(answer+num_ans)+i) = *(*(arr+y)+(x+1)); 
+void righttoLeft(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans){
+	int i = 0;
+	for(i = 1; i<wordlen; i++){
+		if(*(*(arr+y)+(x-1)) == *(current_word+i)){
+			*(answer+i) = *(*(arr+y)+(x-1));
 			 x++;
-			 toLower(arr, x, y);
 		 }
-		 else{
-			 for(j = i; j>=0; j--){
-		 		toUpper(arr,x,y);
-		 		x--;
-		 	}
-		 	
+		 if(strcmp(answer, current_word) == 0){
+			 break;
 		 }
 	}
+}
 
-
+void leftToRight(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans){
+	int i = 0;
+	for(i = 1; i<wordlen; i++){
+		if(*(*(arr+y)+(x+1)) == *(current_word+i)){
+			*(answer+i) = *(*(arr+y)+(x+1));
+			 x++;
+		 }
+		 if(strcmp(answer, current_word) == 0){
+			 break;
+		 }
+	}
 
 }
 
-void topBottom(char** arr, int x, int y, char* current_word, int wordlen, char** answer, int num_ans){
+void topBottom(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans){
 	int i = 0, j = 0;
-	printf("%s\n", "TB FUNCTION");
-	for(i = 0; i<wordlen; i++){
-		printf("%c\t", *(*(arr+(y+1))+x));
-		printf("%d\t", x);
-		printf("%d\n", y+1);
-		if(y+1 >= 15 || *(answer+num_ans) == current_word){
+	for(i = 1; i<=wordlen-1; i++){
+		if(y+i == 15){
 			break;
 		}
-		else if(*(*(arr+(y+1))+x) == *(current_word+i)){
-			*(*(answer+num_ans)+i) = *(*(arr+(y+1))+x);
-			y++;
-			toLower(arr, x, y);
-		}
-		else{
-			for(j = i; j>=0; j--){
-				toUpper(arr, x, y);
-				y--;
-			}
-			break;
-		}
+		if(*(*(arr+(y+i))+x) == *(current_word+i)){
+			*(answer+i) = *(*(arr+(y+i))+x);
+		 }
+		 else{
+			 break;
+		 }
 	}
+}
+
+void rightDiag(char** arr, int x, int y, char* current_word, int wordlen, char* answer, int num_ans){
+	int i = 0;
+	for(i = 1; i<wordlen; i++){
+		if(y+i == 15){
+			break;
+		}
+		else if(*(*(arr+(y+i))+(x+i)) == *(current_word+i)){
+			*(answer+i) = *(*(arr+(y+i))+(x+i));
+		 }
+		 else if((*(*(arr+(y+i))+(x+i))-*(current_word+i)) == 32){
+			 *(answer+i) = *(*(arr+(y+i))+(x+i));
+		 }
+		 else{
+			 break;
+		 }
+	}
+
 }
 
 
 void searchPuzzle(char** arr, int n, char** list, int listSize){
 	// This function checks if arr contains words from list. If a word appears in arr, it will print out that word and then convert that word entry in arr into lower case.
 	// Your implementation here
-	int x = 0, y = 0, p = 0, wordlen = 0, num_ans = 0;
+	int x = 0, y = 0, i = 0, p = 0, wordlen = 0, num_ans = 0;
 	char first_Letter;
 	char last_Letter;
 	char* current_word = (char*)malloc(20*sizeof(char));
 
 	//create space to put the word that show up
-	char** answer = (char**)malloc(10*sizeof(char*));
+	char* answer = (char*)malloc(20*sizeof(char));
 
-	for(int i = 0; i<10; i++){
-		*(answer+i) = (char*)malloc(20*sizeof(char));
-	}
+	// for(int i = 0; i<10; i++){
+	// 	*(answer+i) = (char*)malloc(20*sizeof(char));
+	// }
 
 	upperList(list, listSize);
 	strcpy(current_word, *list);
@@ -201,58 +214,73 @@ void searchPuzzle(char** arr, int n, char** list, int listSize){
 		strcpy(current_word,*(list+p));
 		first_Letter = *(current_word);//first letter of the word we are looking for
 		wordlen = strlen(*(list+p));// length of the word we are looking for 
-
+		//printf("%s\n%d\n", "Main" ,num_ans);
 		//double for loop to go through individual letters in block
 		  for(y = 0; y<n; y++){
 		  	for(x = 0; x<n; x++){
 		 		//We found first letter now we need to find the other ones
 		 		//we can use length to shorten search
-				printf("%s\t", current_word);
+				
 		 		if(*(*(arr+y)+x) == first_Letter){
-				// 	 printf("%s\t", current_word);
-				// printf("%c\n", first_Letter);
-					// *(*(answer+num_ans)) = first_Letter;
-					// toLower(arr,x,y);
+					//printf("%d\t%d\t%c\n", x, y, *(*(arr+(y))+x));
+					*(answer) = first_Letter;
+
 					switch(0){
 						case 0://LR
 					 	leftToRight(arr, x, y, current_word, wordlen, answer, num_ans);
-						if(strcmp(*(answer+num_ans), current_word) == 0){
+						if(strcmp(answer, current_word) == 0){
+							memset(answer, 0, wordlen);
+							for(i = 0; i<wordlen; i++){
+								toLower(arr, x, y);
+								x++;
+							}
 							break;
 						}
-						//case 1://TB
-						//printf("%c\t", *(*(arr+(y))+x));
-						// printf("%d\t", x);
-						// printf("%d\n", y);
-						// topBottom(arr, x, y, current_word, wordlen, answer, num_ans);
-						// if(*(answer+num_ans) == current_word){
-						// 	num_ans++;
-						// 	break;
-						// }
-						// case "RD":
-						// answer = rightDiag();
-						// if(answer == *(list+p)){
-						// 	toLower();
-						// 	break;
-						// }
-						// case "LD":
-						// answer = leftDiag();
-						// if(answer == *(list+p)){
-						// 	toLower();
-						// 	break;
+						case 1://TB
+						topBottom(arr, x, y, current_word, wordlen, answer, num_ans);
+						if(strcmp(answer, current_word) == 0){
+							memset(answer, 0, wordlen);
+							for(i = 0; i<wordlen; i++){
+								toLower(arr, x, y);
+								y++;
+							}
+							break;
+						}
+						case 2://RD
+						rightDiag(arr, x, y, current_word, wordlen, answer, num_ans);
+						if(strcmp(answer, current_word) == 0){
+							memset(answer, 0, wordlen);
+							for(i = 0; i<wordlen; i++){
+								toLower(arr, x, y);
+								x++;
+								y++;
+							}
+							break;
+						}
+						// case 3://LD
+						// leftDiag(arr, x, y, current_word, wordlen, answer, num_ans);
+						//if(strcmp(*(answer+num_ans), current_word) == 0){
+						//	for(i = 0; i<wordlen; i++){
+						//		toLower(arr, x, y);
+						//		x--;
+						//		y++;
+						//	}
+						//	break;
 		 				//}
 					}
-					if(strcmp(*(answer+num_ans), current_word) == 0){
-					break;
-					} 
 		 		}
-				 if(strcmp(*(answer+num_ans), current_word) == 0){
+				if(strcmp(answer, current_word) == 0){
 					break;
-					} 
+				}
 		 	}
-			 if(strcmp(*(answer+num_ans), current_word) == 0){
-					num_ans++;
-				} 
+			if(strcmp(answer, current_word) == 0){
+				break;
+			}
 		 }
+		 if(strcmp(answer, current_word) == 0){
+			//num_ans++;
+		 }
+		memset(answer, 0, wordlen);
 		p++;
 	
 	}
